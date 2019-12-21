@@ -1,0 +1,15 @@
+program structure:
+
+   +Main
+    +-- Game
+        +-- Character
+        +-- Item
+        +-- Area
+
+    Game holds all game world objects; characters (including player character), world areas and items.
+    Items, areas and NPC's are held in HashMap<ID, OBJECT>, where ID is some identifier
+    (probably strings, i.e. name), and OBJECT is the object type (Item, Area, Character etc).
+
+    Character objects track their current location (an Area), and their inventory (HashMap of Item objects).
+    Where relevant, a character will also track their stats (int, str, etc.), and eventually dialogue
+    and event triggers
