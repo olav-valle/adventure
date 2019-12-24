@@ -1,32 +1,93 @@
 import java.util.HashMap;
 import java.util.Iterator;
 
+/**
+ * Class representing an area (a location, room, inside of a cupboard, etc..) in the game world.0
+ */
 public class Area {
 
-    private String name; // Name of area
-
-    private String description; // Description of area.
-
-    private HashMap<String, Item> items; // Items located in the area.
-
-    private HashMap<String, Area> exits;
-    //String is name/direction of exit, i.e. "South", "Down" or "Door"
-
     /**
-     * Area constructor. The only parameter is the name of the area.
-     * Description, items and exits are all initialised as empty,
-     * and set through setters when and if required.
-     * @param name the Name of the area.
+     * Builder for Area objects.
      */
-    public Area(String name)
-    {
-        this.name = name;
+    public static class Builder{
 
-        this.description = ""; //Description of area.
-        this.items = new HashMap<>(); // Item objects located in this area.
-        this.exits = new HashMap<>(); // The other Area objects that this Area is connected to.
+        private String name; // Name of area
+        private String description; // Description of area.
+        private HashMap<String, Item> items; // Items located in the area.
+        private HashMap<String, Area> exits; //String is name/direction of exit, i.e. "South", "Down" or "Door"
 
+        public Builder(String name)
+        {
+            this.name = name;
+
+            this.description = ""; //Description of area is set to empty.
+            this.items = new HashMap<>(); // Item objects located in this area.
+            this.exits = new HashMap<>(); // The other Area objects that this Area is connected to.
+
+        }
+
+        /**
+         * Sets the area description.
+         * @param description String describing the area.
+         * @return the Builder object being built
+         */
+        public Builder withDescription(String description)
+        {
+            this.description = description;
+
+            return this;
+        }
+
+        /**
+         * Adds an exit direction, along with the
+         * @param exitDirection String describing exit direction or name.
+         * @param connectedArea the Area object the exit leads to.
+         * @return the Builder object being built
+         */
+        public Builder withExit(String exitDirection, Area connectedArea)
+        {
+            if(exitDirection != null && connectedArea != null) {
+                exits.put(exitDirection, connectedArea);
+            }
+
+            return this;
+        }
+
+        /**
+         * Adds items to location.
+         * @return
+         */
+        public Builder withItem(String itemDescription, Item item)
+        {
+            if( itemDescription != null && item != null){
+                items.put(itemDescription, item);
+            }
+
+            return this;
+        }
+
+
+        public Area build()
+        {
+            Area area = new Area();
+
+            area.name = this.name;
+            area.description = this.description;
+            area.exits = this.exits;
+            area.items = this.items;
+
+            return area;
+        }
     }
+
+    private String name; // Name of area
+    private String description; // Description of area.
+    private HashMap<String, Item> items; // Items located in the area.
+    private HashMap<String, Area> exits; //String is name/direction of exit, i.e. "South", "Down" or "Door"
+    /**
+     * Area constructor. Class object is constructed with builder class.
+     */
+    private Area() { }
 
     /**
      * Returns area name.
@@ -63,8 +124,22 @@ public class Area {
      */
     public Iterator getExitNameIterator()
     {
-        return exits.values().iterator();
+        return exits.keySet().iterator();
     }
+
+    /**
+     * Returns an iterator of the names of items in the area.
+     * @return iterator of String item names/short descriptions
+     */
+    //TODO return keys, or the actual values (items) and use their getName() methods?
+    // Having "local" names, that are not the actual item name seems useful, i.e find an "old dirty ring" (local name)
+    // and it turning out to be "The One Ring" (actual Item object name field)
+    public Iterator getItemNameIterator()
+    {
+        return items.keySet().iterator();
+    }
+
+
 
     /**
      * Returns the area connected to the specified exit.

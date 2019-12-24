@@ -22,6 +22,17 @@ public class Item {
     }
 
     /**
+     * Sets new item name.
+     * @param newName new name of item
+     */
+    public void setName(String newName)
+    {
+        if((newName != null) && !(newName.isEmpty())){
+            this.name = newName;
+        }
+    }
+
+    /**
      * Set item description string.
      * @param description string describing item.
      */
@@ -42,4 +53,27 @@ public class Item {
         this.weight = weight;
     }
 
+    /**
+     * Returns item name.
+     * @return item name as String.
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Returns string description of item;
+     * @return String describing item.
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Returns item weight as an int representing weight in metric grams. 1000g == 1kg.
+     * @return item weight in grams
+     */
+    public int getWeight() {
+        return weight;
+    }
 }
