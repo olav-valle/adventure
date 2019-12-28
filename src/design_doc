@@ -13,3 +13,16 @@ program structure:
     Character objects track their current location (an Area), and their inventory (HashMap of Item objects).
     Where relevant, a character will also track their stats (int, str, etc.), and eventually dialogue
     and event triggers
+
+    How do we handle the starting area of a character object?
+
+    Should they generate an Area object that is their own private limbo, and stay there until they're
+    given residence in the area they belong?
+
+    First thought is that generating one unique "home" for each character seems wasteful.
+
+    The best way of solving this would be to find a way to handle the fact that any character-object
+    simply starts life with a NULL location, and then figuring out how to handle any exceptions that
+    may be raised by this issue.
+
+    I guess this is where I learn about exception handling..?

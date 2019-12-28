@@ -16,9 +16,17 @@ public class Area {
         private HashMap<String, Item> items; // Items located in the area.
         private HashMap<String, Area> exits; //String is name/direction of exit, i.e. "South", "Down" or "Door"
 
+        /**
+         * Area builder. Parameter is the name of the area. Other buildable fields are
+         * description (withDescription), loot or items (withItems), and connections to
+         * other areas, aka exits (withExits).
+         * @param name
+         */
         public Builder(String name)
         {
-            this.name = name;
+            if(name != null && !(name.isBlank())){
+                this.name = name;
+            }
 
             this.description = ""; //Description of area is set to empty.
             this.items = new HashMap<>(); // Item objects located in this area.
