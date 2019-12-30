@@ -49,16 +49,42 @@ public class Character {
 
         }
 
-        public Builder withBio(String bio){
+        public Builder withBio(String bio)
+        {
             if( bio != null){
                 this.bio = bio;
             }
             return this;
         }
 
+        /**
+         * Adds an item to the Character object being constructed.
+         * @param item
+         * @return
+         */
+        public Builder withItem(Item item)
+        {
+            if( item != null )
+            {
+                 this.inventory.put(item.getName(), item);
+            }
 
+            return this;
+        }
+
+        public Character build()
+        {
+            Character newChar = new Character();
+
+            newChar.name = this.name;
+            newChar.bio = this.bio;
+            newChar.inventory = this.inventory;
+
+            return newChar;
+        }
 
     }
+
     //name of character
     private String name;
 
@@ -74,11 +100,29 @@ public class Character {
 
     /**
      * Character object constructor.
-     * @param name name of character.
      */
-    public Character(String name)
+    public Character()
     {
-        this.name = name;
     }
 
+    /**
+     * Changes the characters location.
+     * Does not check if the new location is/was actually connected to the new area.
+     */
+    public void setLocation(Area newLocation)
+    {
+        if (newLocation != null){
+            this.location = newLocation;
+        }
+        //TODO what if Area is NULL?
+    }
+
+    /**
+     * Returns the name of the area the character is located in.
+     * @return name of current location.
+     */
+    public String getLocation()
+    {
+        return location.getName();
+    }
 }

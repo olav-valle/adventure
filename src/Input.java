@@ -1,6 +1,11 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Class for handling user text input.
+ */
 public class Input {
 
     private Scanner input;
@@ -19,9 +24,10 @@ public class Input {
      */
     public String getStringInput()
     {
+        System.out.print(">");
         String input = "";
 
-        if ( this.input != null && this.input.hasNext() ) {
+        if ( this.input != null && this.input.hasNextLine() ) {
             input = this.input.nextLine();
         }
         else{ input = "INVALID"; } //TODO should this be here, or handle the NULL on the callers end?
@@ -33,20 +39,28 @@ public class Input {
      * Returns an integer input by user, or -1 if input was not a valid integer
      * @return
      */
-    public int getIntInput(){
+    public int getIntInput()
+    {
+        System.out.print(">");
 
 
         return 0;
     }
 
     /**
-     * Returns
-     * @return
+     * Returns a user input string of commands as a list, by separating the string by regex " ".
+     * @return list of single words in a user input string.
      */
     public List<String> getCommandList()
     {
-        if( input.hasNext() && !(input.next().isBlank()) ){
+        System.out.print(">");
 
+        List<String> inputList = new ArrayList<>();
+
+        if( input.hasNext() && !(input.next().isBlank()) ){
+            inputList = Arrays.asList(input.nextLine().split(" "));
         }
+        return inputList;
     }
+
 }
