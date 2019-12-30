@@ -20,7 +20,7 @@ public class Area {
          * Area builder. Parameter is the name of the area. Other buildable fields are
          * description (withDescription), loot or items (withItems), and connections to
          * other areas, aka exits (withExits).
-         * @param name
+         * @param name Name of area.
          */
         public Builder(String name)
         {
@@ -63,7 +63,7 @@ public class Area {
 
         /**
          * Adds items to location.
-         * @return
+         * @return Builder object.
          */
         public Builder withItem(String itemDescription, Item item)
         {
@@ -74,7 +74,10 @@ public class Area {
             return this;
         }
 
-
+        /**
+         * Builds an area object with the Builders currently set fields.
+         * @return The Area class object.
+         */
         public Area build()
         {
             Area area = new Area();
